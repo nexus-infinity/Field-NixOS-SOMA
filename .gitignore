@@ -20,9 +20,13 @@ result-*
 *id_ed25519*
 *.env
 .env*
-secrets*
 credentials*
 *.secret*
+
+# Secrets directory (except README)
+secrets/*
+!secrets/README.md
+!secrets/.gitignore
 
 # Temp files
 *.log
@@ -53,7 +57,12 @@ node_modules/
 /nix/var/nix/profiles/
 
 # Hardware-specific configs that shouldn't be shared
-# hardware-configuration.nix
+# Note: Root-level hardware-configuration.nix is typically hardware-specific
+# But hardware/ directory README and templates ARE committed
+hardware-configuration.nix
+!hardware/README.md
+!hardware/*/
+!hardware/**/*.nix.template
 
 # FIELD pipeline outputs (scans and logs are system-specific)
 /var/log/FIELD-Scan-*/
@@ -81,3 +90,19 @@ venv/
 env/
 ENV/
 .venv/
+
+# User home directories (NEVER commit user data)
+# This ensures stateless, deployment-ready configuration
+home/
+/home/
+*.home/
+user-data/
+
+# Non-flake-managed NixOS files
+/etc/nixos/configuration.nix.backup
+/etc/nixos/*.backup
+
+# System-generated runtime data
+/var/lib/
+/var/log/
+/var/cache/
