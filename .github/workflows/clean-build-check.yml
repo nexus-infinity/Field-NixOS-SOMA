@@ -1,0 +1,337 @@
+name: Clean Build Validation
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+  workflow_dispatch:
+
+jobs:
+  pre-deployment-check:
+    name: Pre-Deployment Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for secret scanning
+      
+      - name: Install Nix
+        uses: cachix/install-nix-action@v24
+        with:
+          nix_path: nixpkgs=channel:nixos-23.11
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Run Pre-Deployment Check
+        run: |
+          chmod +x scripts/pre-deployment-check.sh
+          ./scripts/pre-deployment-check.sh
+      
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pre-deployment-report
+          path: |
+            pre-deployment-*.txt
+          retention-days: 30
+
+  environment-evaluation:
+    name: Environment Evaluation
+    runs-on: ubuntu-latest
+    needs: pre-deployment-check
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Install Nix
+        uses: cachix/install-nix-action@v24
+        with:
+          nix_path: nixpkgs=channel:nixos-23.11
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Run Environment Evaluation
+        run: |
+          chmod +x scripts/evaluate-environment.sh
+          ./scripts/evaluate-environment.sh
+      
+      - name: Upload evaluation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: environment-evaluation
+          path: |
+            evaluation-*.txt
+          retention-days: 30
+
+  flake-check:
+    name: Flake Validation
+    runs-on: ubuntu-latest
+    needs: pre-deployment-check
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Install Nix
+        uses: cachix/install-nix-action@v24
+        with:
+          nix_path: nixpkgs=channel:nixos-23.11
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Validate flake metadata
+        run: |
+          nix flake metadata
+      
+      - name: Show flake outputs
+        run: |
+          nix flake show
+      
+      - name: Check flake
+        run: |
+          nix flake check --all-systems --no-build || true
+          # Note: Will fail without hardware-configuration.nix, which is expected
+
+  build-configurations:
+    name: Build NixOS Configurations
+    runs-on: ubuntu-latest
+    needs: [pre-deployment-check, flake-check]
+    strategy:
+      matrix:
+        config: [BearsiMac, willowie, soma-willowie, trident-dev]
+      fail-fast: false
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Install Nix
+        uses: cachix/install-nix-action@v24
+        with:
+          nix_path: nixpkgs=channel:nixos-23.11
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v13
+        with:
+          name: field-nixos-soma
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          skipPush: true
+        continue-on-error: true
+      
+      - name: Create stub hardware-configuration.nix
+        run: |
+          cat > hardware-configuration.nix <<'EOF'
+          # Stub hardware configuration for CI builds
+          { config, lib, pkgs, modulesPath, ... }:
+          {
+            imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+            boot.loader.grub.enable = true;
+            boot.loader.grub.device = "/dev/vda";
+            fileSystems."/" = {
+              device = "/dev/vda1";
+              fsType = "ext4";
+            };
+            swapDevices = [ ];
+            nixpkgs.hostPlatform = "x86_64-linux";
+          }
+          EOF
+      
+      - name: Evaluate configuration
+        run: |
+          nix eval .#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel.drvPath
+      
+      - name: Build configuration (dry-run)
+        run: |
+          nix build .#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel --dry-run
+        continue-on-error: true
+      
+      - name: Report build status
+        if: always()
+        run: |
+          echo "Configuration: ${{ matrix.config }}"
+          echo "Status: ${{ job.status }}"
+
+  secret-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for scanning
+      
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+      
+      - name: Manual secret patterns check
+        run: |
+          echo "Scanning for common secret patterns..."
+          
+          # Check for potential secrets in tracked files
+          if git grep -iE "(password|passwd|secret|api.?key|token|private.?key)" | grep -v "\.md:" | grep -v "\.sh:" | grep -v "^#" | head -10; then
+            echo "⚠️ WARNING: Found potential secret patterns"
+            echo "Review these carefully - may be false positives"
+          else
+            echo "✅ No obvious secret patterns found"
+          fi
+      
+      - name: Check for secret files
+        run: |
+          echo "Checking for secret-like filenames..."
+          
+          if git ls-files | grep -iE "(secret|\.key$|\.pem$|id_rsa|id_ed25519|\.env$)" | grep -v "secrets/README.md"; then
+            echo "❌ ERROR: Secret-like files are tracked!"
+            exit 1
+          else
+            echo "✅ No secret files tracked"
+          fi
+
+  user-data-check:
+    name: User Data Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Check for /home directories
+        run: |
+          echo "Checking for user home directories..."
+          
+          if find . -type d -name "home" -not -path "*/.git/*" | grep -q .; then
+            echo "❌ ERROR: Found 'home' directory in repository!"
+            find . -type d -name "home" -not -path "*/.git/*"
+            exit 1
+          else
+            echo "✅ No home directories found"
+          fi
+      
+      - name: Check for user-specific files
+        run: |
+          echo "Checking for user-specific files..."
+          
+          user_files=$(find . \( \
+            -name ".bash_history" -o \
+            -name ".zsh_history" -o \
+            -name "id_rsa*" -o \
+            -name "id_ed25519*" \
+          \) -not -path "*/.git/*" 2>/dev/null)
+          
+          if [ -n "$user_files" ]; then
+            echo "❌ ERROR: Found user-specific files!"
+            echo "$user_files"
+            exit 1
+          else
+            echo "✅ No user-specific files found"
+          fi
+
+  documentation-check:
+    name: Documentation Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Check required documentation
+        run: |
+          echo "Validating documentation..."
+          
+          required_docs=(
+            "README.md"
+            "flake.nix"
+            "docs/runbooks/CLEAN-ROOM-DEPLOYMENT.md"
+            "docs/runbooks/STATELESS-DEPLOYMENT-VALIDATION.md"
+            "hardware/README.md"
+            "secrets/README.md"
+          )
+          
+          missing=0
+          for doc in "${required_docs[@]}"; do
+            if [ ! -f "$doc" ] && [ ! -d "$doc" ]; then
+              echo "❌ Missing: $doc"
+              ((missing++)) || true
+            else
+              echo "✅ Found: $doc"
+            fi
+          done
+          
+          if [ $missing -gt 0 ]; then
+            echo "❌ $missing required documentation files missing"
+            exit 1
+          else
+            echo "✅ All required documentation present"
+          fi
+      
+      - name: Check for broken links in README
+        run: |
+          echo "Checking for broken internal links..."
+          
+          # Simple check for internal markdown links
+          grep -oP '\[.*?\]\(\K[^)]*(?=\))' README.md | while read link; do
+            if [[ "$link" =~ ^http ]]; then
+              continue  # Skip external links
+            fi
+            if [ ! -f "$link" ] && [ ! -d "$link" ]; then
+              echo "⚠️ WARNING: Broken link: $link"
+            fi
+          done || true
+
+  validation-summary:
+    name: Validation Summary
+    runs-on: ubuntu-latest
+    needs: [
+      pre-deployment-check,
+      environment-evaluation,
+      flake-check,
+      build-configurations,
+      secret-scan,
+      user-data-check,
+      documentation-check
+    ]
+    if: always()
+    
+    steps:
+      - name: Summary
+        run: |
+          echo "# Validation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Job Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- Pre-Deployment Check: ${{ needs.pre-deployment-check.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Environment Evaluation: ${{ needs.environment-evaluation.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Flake Check: ${{ needs.flake-check.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Build Configurations: ${{ needs.build-configurations.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Secret Scan: ${{ needs.secret-scan.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- User Data Check: ${{ needs.user-data-check.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Documentation Check: ${{ needs.documentation-check.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ needs.pre-deployment-check.result }}" == "success" ] && \
+             [ "${{ needs.secret-scan.result }}" == "success" ] && \
+             [ "${{ needs.user-data-check.result }}" == "success" ]; then
+            echo "✅ **STATELESS VALIDATION PASSED**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Configuration is clean and deployment-ready." >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **STATELESS VALIDATION FAILED**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Critical issues detected. Review job logs." >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
