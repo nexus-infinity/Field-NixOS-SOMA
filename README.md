@@ -77,26 +77,35 @@ See [docs/UBUNTU_PHILOSOPHY.md](docs/UBUNTU_PHILOSOPHY.md) for complete explanat
 ## 📁 Repository Structure
 
 ```
-iNixOS-Willowie/
-├── flake.nix                              # Main entry point
+Field-NixOS-SOMA/
+├── flake.nix                              # Main entry point (flake-managed)
 ├── hardware-configuration.nix             # Generated on target system
-├── QUICK-START-INSTALLATION.md           # 👈 Start here for new installations
-├── README-QUICKSTART.md                   # For existing NixOS systems
 │
 ├── docs/
+│   ├── runbooks/                          # Operational procedures
+│   │   ├── CLEAN-ROOM-DEPLOYMENT.md      # Stateless deployment guide
+│   │   └── STATELESS-DEPLOYMENT-VALIDATION.md  # Validation procedures
 │   ├── IMAC-2019-FUSION-DRIVE-SETUP.md   # Comprehensive installation guide
-│   ├── INSTALLATION-FLOW.md               # Visual installation flow
-│   ├── POST-INSTALLATION-CHECKLIST.md    # Verification checklist
+│   ├── FIRST-BOOT-README.md              # First boot guide
+│   ├── SYSTEM-IMAGE-EXPORT.md            # System image creation guide
 │   └── CONFIGURATION_REVIEW.md            # Detailed configuration docs
 │
 ├── scripts/
 │   ├── detect-drives.sh                   # Identify SSD vs HDD
 │   ├── verify-mounts.sh                   # Verify mount points
-│   └── evaluate-environment.sh            # Validate configuration
+│   ├── evaluate-environment.sh            # Validate configuration
+│   ├── pre-deployment-check.sh           # Stateless deployment validation
+│   └── build-image.sh                     # Build system images
 │
 ├── nixosConfigurations/
-│   └── BearsiMac/
-│       └── configuration.nix              # Machine-specific settings
+│   ├── BearsiMac/                         # iMac 2019 configuration
+│   ├── willowie/                          # Willowie consciousness system
+│   ├── soma-willowie/                     # Full SOMA Ubuntu collective
+│   └── trident-dev/                       # Trident Scrum workspace
+│
+├── hardware/                              # Hardware profiles
+├── overlays/                              # Nix package overlays
+├── secrets/                               # Encrypted secrets (not in git)
 │
 ├── chakras/                               # 9 modular chakra configurations
 │   ├── muladhara/    # Root chakra
@@ -166,6 +175,37 @@ See **[docs/SOMA-ARCHITECTURE.md](docs/SOMA-ARCHITECTURE.md)** for complete spec
 - **Frequency Bridge**: Port 43200 connects consciousness (528Hz) to earth (432Hz)
 
 For details, see [WARP.md](WARP.md) and [docs/CONFIGURATION_REVIEW.md](docs/CONFIGURATION_REVIEW.md)
+
+## 🔒 Stateless & Deployment-Ready
+
+Field-NixOS-SOMA is designed as a **stateless, reproducible** configuration:
+
+### What This Means
+- ✅ **No user data**: System contains only infrastructure code, no /home directories or personal files
+- ✅ **Fully reproducible**: Configuration can be rebuilt identically from source
+- ✅ **Flake-managed**: Everything specified in NixOS configuration files
+- ✅ **Version controlled**: All configuration in git, no manual changes
+- ✅ **Secrets encrypted**: Credentials managed with sops-nix or agenix
+- ✅ **Image exportable**: Can be converted to ISO, VM, Docker, cloud images
+
+### Validation Tools
+
+```bash
+# Run comprehensive pre-deployment check
+./scripts/pre-deployment-check.sh
+
+# Validate environment
+./scripts/evaluate-environment.sh
+
+# Build system image
+./scripts/build-image.sh --config BearsiMac --format iso
+```
+
+### Documentation
+- **[Clean-Room Deployment](docs/runbooks/CLEAN-ROOM-DEPLOYMENT.md)** - Step-by-step deployment guide
+- **[Stateless Validation](docs/runbooks/STATELESS-DEPLOYMENT-VALIDATION.md)** - Validation procedures
+- **[System Image Export](docs/SYSTEM-IMAGE-EXPORT.md)** - Creating deployable images
+- **[First Boot Guide](docs/FIRST-BOOT-README.md)** - Initial setup after deployment
 
 ## ⚙️ System Requirements
 
