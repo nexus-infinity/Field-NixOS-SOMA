@@ -219,6 +219,18 @@ Field-NixOS-SOMA is designed as a **stateless, reproducible** configuration:
 ### Getting Started
 | Document | Purpose |
 |----------|---------|
+| [docs/QUICKSTART-EDITORS.md](docs/QUICKSTART-EDITORS.md) | Text editors guide: Kate, vim, VS Code, etc. |
+| [QUICK-START-INSTALLATION.md](QUICK-START-INSTALLATION.md) | Quick start for new installations |
+| [README-QUICKSTART.md](README-QUICKSTART.md) | For existing NixOS systems |
+| [docs/IMAC-2019-FUSION-DRIVE-SETUP.md](docs/IMAC-2019-FUSION-DRIVE-SETUP.md) | Comprehensive installation guide |
+| [docs/INSTALLATION-FLOW.md](docs/INSTALLATION-FLOW.md) | Visual installation workflow |
+| [docs/POST-INSTALLATION-CHECKLIST.md](docs/POST-INSTALLATION-CHECKLIST.md) | Post-install verification |
+
+### Tools & Configuration
+| Document | Purpose |
+|----------|---------|
+| [docs/EDITORS-GUIDE.md](docs/EDITORS-GUIDE.md) | Complete text editors guide with Kate features |
+|----------|---------|
 | [QUICK-START-INSTALLATION.md](QUICK-START-INSTALLATION.md) | Quick start for new installations |
 | [README-QUICKSTART.md](README-QUICKSTART.md) | For existing NixOS systems |
 | [docs/IMAC-2019-FUSION-DRIVE-SETUP.md](docs/IMAC-2019-FUSION-DRIVE-SETUP.md) | Comprehensive installation guide |
