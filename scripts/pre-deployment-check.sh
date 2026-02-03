@@ -195,9 +195,9 @@ check_secrets_not_tracked() {
     fi
     
     # Check for files with 'secret' or 'key' in name
-    if git ls-files | grep -iE "(secret|\.key$|\.pem$|id_rsa|id_ed25519)" | grep -q .; then
+    if git ls-files | grep -iE "(secret|\.key$|\.pem$|id_rsa|id_ed25519)" | grep -v "secrets/README.md" | grep -v "secrets/.gitignore" | grep -q .; then
         check_critical "Files with secret-like names are tracked in git!"
-        git ls-files | grep -iE "(secret|\.key$|\.pem$|id_rsa|id_ed25519)" | while read -r file; do
+        git ls-files | grep -iE "(secret|\.key$|\.pem$|id_rsa|id_ed25519)" | grep -v "secrets/README.md" | grep -v "secrets/.gitignore" | while read -r file; do
             check_info "  $file"
         done
     else
