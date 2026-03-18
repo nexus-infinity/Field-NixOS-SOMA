@@ -96,6 +96,10 @@
     shell = pkgs.zsh;
     # Set initial password - change this after first login!
     # To generate a hashed password: mkpasswd -m sha-512
+    # If password is not accepted after install, reset via:
+    #   sudo passwd jbear
+    # or from installer USB chroot:
+    #   nixos-enter --root /mnt -c "passwd jbear"
     initialPassword = "nixos";
   };
 
@@ -114,9 +118,23 @@
     gnome.gnome-tweaks
   ];
 
+  # Firewall configuration - allow SSH and common ports
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 22 ];
+  };
+
   # Enable important services
   services = {
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings = {
+        # Allow password authentication so local credentials work over SSH
+        PasswordAuthentication = true;
+        # Disable root login over SSH for security; use jbear + sudo instead
+        PermitRootLogin = "no";
+      };
+    };
     # Enable X11 and GNOME Desktop
     xserver = {
       enable = true;

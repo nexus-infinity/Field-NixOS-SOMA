@@ -34,8 +34,16 @@
     htop
   ];
 
-  # Enable SSH
-  services.openssh.enable = true;
+  # Enable SSH with password authentication
+  services.openssh = {
+    enable = true;
+    settings = {
+      # Allow password authentication so local credentials work over SSH
+      PasswordAuthentication = true;
+      # Disable root login over SSH for security; use willowie + sudo instead
+      PermitRootLogin = "no";
+    };
+  };
 
   # Firewall configuration (open Ajna port)
   networking.firewall.enable = true;
