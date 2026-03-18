@@ -199,9 +199,11 @@
   
   services.openssh = {
     enable = true;
+    openFirewall = true;
     settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false;
+      PermitRootLogin = "prohibit-password";
+      PasswordAuthentication = true;
+      KbdInteractiveAuthentication = true;
     };
   };
   

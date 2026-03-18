@@ -115,16 +115,23 @@
   ];
 
   # Enable important services
-  services = {
-    openssh.enable = true;
-    # Enable X11 and GNOME Desktop
-    xserver = {
-      enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-      # For iMac's AMD Radeon graphics
-      videoDrivers = [ "amdgpu" ];
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      PermitRootLogin = "prohibit-password";
+      PasswordAuthentication = true;
+      KbdInteractiveAuthentication = true;
     };
+  };
+
+  # Enable X11 and GNOME Desktop
+  services.xserver = {
+    enable = true;
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
+    # For iMac's AMD Radeon graphics
+    videoDrivers = [ "amdgpu" ];
   };
 
   # System state version

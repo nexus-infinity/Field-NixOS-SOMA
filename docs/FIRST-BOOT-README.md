@@ -106,6 +106,22 @@ ssh-keygen -t ed25519 -C "your-email@example.com"
 # Or configure in NixOS configuration
 ```
 
+Ensure password authentication is enabled if you rely on credentials set during install:
+
+```nix
+services.openssh = {
+  enable = true;
+  openFirewall = true;
+  settings = {
+    PermitRootLogin = "prohibit-password";
+    PasswordAuthentication = true;
+    KbdInteractiveAuthentication = true;
+  };
+};
+```
+
+After rebuilding, verify with `sudo systemctl status sshd` and test from another host using `ssh -o PreferredAuthentications=password jbear@<ip-address>`.
+
 #### 3. Update System (if needed)
 
 ```bash
@@ -181,6 +197,29 @@ Then rebuild:
 sudo nixos-rebuild switch --flake /etc/nixos#$(hostname)
 ```
 
+### Resetting passwords from the installer (if login fails)
+
+If console or SSH logins reject the password you set during install:
+
+```bash
+# 1. Boot the NixOS installer USB
+# 2. Mount the target system
+sudo mount /dev/sda2 /mnt            # root
+sudo mount /dev/sda1 /mnt/boot       # ESP
+sudo mount --rbind /dev /mnt/dev
+sudo mount --rbind /proc /mnt/proc
+sudo mount --rbind /sys /mnt/sys
+sudo mount --rbind /run /mnt/run
+
+# 3. Enter the installed system and reset passwords
+sudo chroot /mnt /bin/sh -c "passwd root && passwd jbear"
+
+# 4. Exit and unmount when done
+sudo umount -R /mnt
+```
+
+After rebooting, verify SSH again with the updated password.
+
 ### Enabling Services
 
 Add service configuration to your NixOS config:
@@ -189,7 +228,12 @@ Add service configuration to your NixOS config:
 # In configuration.nix
 services.openssh = {
   enable = true;
-  settings.PasswordAuthentication = false;
+  openFirewall = true;
+  settings = {
+    PermitRootLogin = "prohibit-password";
+    PasswordAuthentication = true;
+    KbdInteractiveAuthentication = true;
+  };
 };
 ```
 
