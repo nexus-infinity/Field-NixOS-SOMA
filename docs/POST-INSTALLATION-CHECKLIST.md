@@ -58,9 +58,19 @@ Use this checklist after successfully installing NixOS with the iNixOS-Willowie 
 
 ### User Configuration
 - [ ] Changed initial password (`passwd`)
+- [ ] Verified password works for local login
+- [ ] Verified password works for SSH login (if SSH enabled)
 - [ ] User can use sudo (`sudo -l`)
 - [ ] Shell is set to zsh (`echo $SHELL`)
 - [ ] Home directory permissions correct (`ls -la ~`)
+
+### SSH Access (if enabled)
+- [ ] SSH service is running (`systemctl status sshd`)
+- [ ] Firewall allows SSH port 22 (`sudo iptables -L -n | grep 22`)
+- [ ] Can SSH from localhost (`ssh jbear@localhost`)
+- [ ] Can SSH from another machine (`ssh jbear@<IP>`)
+- [ ] Password authentication works (or SSH keys configured)
+- [ ] Root login disabled (`grep PermitRootLogin /etc/ssh/sshd_config`)
 
 ### System Security
 - [ ] Root password set (if using root login)
