@@ -3,7 +3,7 @@
 { config, lib, pkgs, ... }:
 {
   imports = [
-    ../../../modules/services/copilot-assistant-flake.nix
+    ../../modules/services/copilot-assistant-flake.nix
     ./hardware-configuration.nix
     ../../dot-hive/default.nix
     ../../modules/atlas.nix
@@ -127,7 +127,6 @@
     zsh
     htop
     firefox
-    gnome.gnome-tweaks
   ];
 
   # Enable important services
@@ -146,16 +145,16 @@
         PasswordAuthentication = true;
       };
     };
-    # Enable X11 and GNOME Desktop
+    # KDE Plasma + SDDM (matches working BearsiMac Generation 11 on 24.05)
+    displayManager.sddm.enable = true;
     xserver = {
       enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      desktopManager.plasma5.enable = true;
       # For iMac's AMD Radeon graphics
       videoDrivers = [ "amdgpu" ];
     };
   };
 
-  # System state version
-  system.stateVersion = "23.11";
+  # System state version — must match installed NixOS release channel (24.05)
+  system.stateVersion = "24.05";
 }

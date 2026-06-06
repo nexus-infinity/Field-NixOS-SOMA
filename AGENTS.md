@@ -29,6 +29,13 @@ nix flake show
 nix develop .#default    # or .#soma, .#trident
 ```
 
+**BearsiMac channel:** Root `flake.nix` targets **nixos-24.05** with **KDE Plasma 5 + SDDM** (not GNOME). After editing flakes on the machine:
+
+```bash
+nix flake update --extra-experimental-features "nix-command flakes"
+sudo nixos-rebuild boot --flake .#BearsiMac --impure
+```
+
 Full `nixos-rebuild switch` requires bare metal/VM with real hardware config. In cloud VMs, CI-style evaluation is enough:
 
 ```bash

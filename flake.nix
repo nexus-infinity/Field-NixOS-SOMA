@@ -2,7 +2,7 @@
   description = "BearsiMac - Willowie Kitchen NixOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
   };
 
   outputs = { self, nixpkgs }: let
@@ -123,7 +123,7 @@
             networking.networkmanager.enable = true;
             time.timeZone = "America/New_York";
             
-            system.stateVersion = "23.11";
+            system.stateVersion = "24.05";
             
             nix.settings = {
               auto-optimise-store = true;
@@ -202,7 +202,7 @@
             networking.networkmanager.enable = true;
             time.timeZone = "America/New_York";
             
-            system.stateVersion = "23.11";
+            system.stateVersion = "24.05";
             
             nix.settings = {
               auto-optimise-store = true;
