@@ -17,7 +17,14 @@ in
   services.mosquitto = {
     enable = true;
     package = pkgs.mosquitto;
-    bindAddress = "127.0.0.1";
+    listeners = [
+      {
+        address = "127.0.0.1";
+        port = 1883;
+        omitPasswordAuth = true;
+        settings.allow_anonymous = true;
+      }
+    ];
   };
 
   users.users.atlas = {
