@@ -134,11 +134,17 @@
 │  ┌───────────────────────────────────────────────────────────┐  │
 │  │  Change password: passwd                                   │  │
 │  │  Connect to WiFi                                           │  │
+│  │  Test SSH access (if enabled):                            │  │
+│  │    ssh jbear@localhost                                    │  │
+│  │    ssh jbear@<your-ip> (from another machine)            │  │
 │  │  Test rebuild: cd ~/iNixOS-Willowie                       │  │
 │  │                sudo nixos-rebuild test --flake .#BearsiMac │  │
 │  │                                                            │  │
 │  │  Complete checklist:                                       │  │
 │  │  docs/POST-INSTALLATION-CHECKLIST.md                      │  │
+│  │                                                            │  │
+│  │  If password issues occur, see:                           │  │
+│  │  docs/runbooks/SSH-PASSWORD-RECOVERY.md                   │  │
 │  └───────────────────────────────────────────────────────────┘  │
 └────────────────────────────┬────────────────────────────────────┘
                              │

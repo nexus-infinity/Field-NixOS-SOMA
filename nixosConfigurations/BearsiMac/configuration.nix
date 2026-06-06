@@ -23,6 +23,13 @@
     networkmanager.enable = true;
     # Note: Do not enable wireless.enable when using NetworkManager
     # They conflict with each other
+
+    # Firewall configuration
+    firewall = {
+      enable = true;
+      # Allow SSH for remote access
+      allowedTCPPorts = [ 22 ];
+    };
   };
 
   # Boot loader configuration for EFI
