@@ -3,7 +3,7 @@
 { config, lib, pkgs, ... }:
 {
   imports = [
-    ../../../modules/services/copilot-assistant-flake.nix
+    ../../modules/services/copilot-assistant-flake.nix
     ./hardware-configuration.nix
     ../../dot-hive/default.nix
     ../../modules/atlas.nix
