@@ -127,7 +127,6 @@
     zsh
     htop
     firefox
-    gnome.gnome-tweaks
   ];
 
   # Enable important services
@@ -146,16 +145,16 @@
         PasswordAuthentication = true;
       };
     };
-    # Enable X11 and GNOME Desktop
+    # Enable X11 and the authentic KDE Plasma desktop
     xserver = {
       enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      displayManager.sddm.enable = true;
+      desktopManager.plasma5.enable = true;
       # For iMac's AMD Radeon graphics
       videoDrivers = [ "amdgpu" ];
     };
   };
 
   # System state version
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 }
