@@ -30,11 +30,14 @@ in
   users.users.atlas = {
     isSystemUser = true;
     description = "Atlas runtime user";
+    group = "atlas";
     createHome = false;
     home = "/var/lib/atlas";
     extraGroups = [ ];
     shell = "/sbin/nologin";
   };
+
+  users.groups.atlas = { };
 
   systemd.services."atlas-frontend" = {
     description = "Atlas frontend (bridge)";
