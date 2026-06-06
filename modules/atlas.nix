@@ -12,16 +12,26 @@ in
     podman
   ];
 
-  services.node_exporter.enable = true;
+  services.prometheus.exporters.node.enable = true;
 
   services.mosquitto = {
     enable = true;
     package = pkgs.mosquitto;
-    bindAddress = "127.0.0.1";
+    listeners = [
+      {
+        address = "127.0.0.1";
+        port = 1883;
+        omitPasswordAuth = true;
+        settings.allow_anonymous = true;
+      }
+    ];
   };
+
+  users.groups.atlas = { };
 
   users.users.atlas = {
     isSystemUser = true;
+    group = "atlas";
     description = "Atlas runtime user";
     createHome = false;
     home = "/var/lib/atlas";

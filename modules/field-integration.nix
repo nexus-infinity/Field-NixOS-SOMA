@@ -22,15 +22,28 @@ with lib;
       description = "Identity string for SOMA sphere";
     };
     
-    trainStation = mkOption {
-      type = types.attrs;
-      default = {
-        frequency = 852;
-        position = "center";
-        symbol = "🚂";
-        chakra = "Crown Base";
-      };
-      description = "Train Station orchestrator configuration";
+    trainStation.frequency = mkOption {
+      type = types.int;
+      default = 852;
+      description = "Train Station orchestrator frequency (Hz)";
+    };
+
+    trainStation.position = mkOption {
+      type = types.str;
+      default = "center";
+      description = "Train Station position in the octahedron";
+    };
+
+    trainStation.symbol = mkOption {
+      type = types.str;
+      default = "🚂";
+      description = "Train Station symbol";
+    };
+
+    trainStation.chakra = mkOption {
+      type = types.str;
+      default = "Crown Base";
+      description = "Chakra associated with Train Station";
     };
     
     vertices = mkOption {
