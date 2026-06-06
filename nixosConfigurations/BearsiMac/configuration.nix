@@ -146,9 +146,9 @@
       };
     };
     # Enable X11 and the authentic KDE Plasma desktop
+    displayManager.sddm.enable = true;
     xserver = {
       enable = true;
-      displayManager.sddm.enable = true;
       desktopManager.plasma5.enable = true;
       # For iMac's AMD Radeon graphics
       videoDrivers = [ "amdgpu" ];
