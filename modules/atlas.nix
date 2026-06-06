@@ -12,7 +12,7 @@ in
     podman
   ];
 
-  services.node_exporter.enable = true;
+  services.prometheus.exporters.node.enable = true;
 
   services.mosquitto = {
     enable = true;
