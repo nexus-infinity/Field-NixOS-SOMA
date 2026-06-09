@@ -34,8 +34,16 @@
     htop
   ];
 
-  # Enable SSH
-  services.openssh.enable = true;
+  # Enable SSH with password authentication (for first-boot access)
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      PermitRootLogin = "prohibit-password";
+      PasswordAuthentication = true;
+      KbdInteractiveAuthentication = true;
+    };
+  };
 
   # Firewall configuration (open Ajna port)
   networking.firewall.enable = true;

@@ -70,7 +70,7 @@ These notes record geometric, semantic, and temporal identification for the Bear
 - Password recovery (chroot method):
   - Boot live USB -> mount /dev/sda2 to /mnt and /dev/sda1 to /mnt/boot -> bind /dev /proc /sys /run -> `sudo chroot /mnt /bin/sh -c "passwd root && passwd jbear"`
 
-- SSH troubleshooting checklist: ensure `services.openssh.enable = true` and run `sudo systemctl enable --now sshd` on installed system. Use `ssh -vvv` from client for debug.
+- SSH troubleshooting checklist: ensure `services.openssh.enable = true`, `services.openssh.openFirewall = true`, and `services.openssh.settings.PasswordAuthentication = true` (root logins remain `PermitRootLogin = "prohibit-password"`). After updating config, run `sudo systemctl restart sshd` on the installed system. Use `ssh -vvv` from a client for debug.
 
 ## 5. Semantic Labels & Tags (for search & automation)
 
