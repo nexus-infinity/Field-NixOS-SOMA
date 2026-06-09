@@ -1,36 +1,43 @@
 
 ###############################################################################
-# Copilot Assistant Service (Geometric Alignment)
+# BearsiMac Configuration (proper module)
+#
+# Replaces the previous copilot fragment / duplicate blocks.
+# Provides clean imports matching the modules list from flake.nix
+# (for BearsiMac) + dot-hive + the copilot service.
+# Relative paths are used to keep flake pure eval happy (no absolute
+# /nix/store paths leaking in).
 ###############################################################################
 
-# Make sure this import is present in your imports list!
-# If you have an existing 'imports = [ ... ];' block, add the line below inside it.
-imports = [
-  ../modules/services/copilot-assistant-flake.nix
-# ... other imports ...
-];
+{ config, pkgs, lib, specialArgs ? {}, ... }:
 
-services.copilot-assistant = {
-  enable = true;
-  backend = "python";
-  backendScript = "/etc/copilot-assistant/copilot-assistant-python.py";
-  port = 8765;
-};
+{
+  imports = [
+    # Hardware from the BearsiMac subdir (as referenced in flake)
+    ./BearsiMac/hardware-configuration.nix
 
-###############################################################################
-# Copilot Assistant Service (Geometric Alignment)
-###############################################################################
+    # SOMA / FIELD core modules (from the BearsiMac entry in flake.nix)
+    ../modules/services/dojo-nodes.nix
+    ../dot-hive/default.nix
+    ../modules/services/atlas-frontend.nix
 
-# Add this to your imports array (edit the existing one, or add if not present):
-imports = [
-  ../modules/services/copilot-assistant-flake.nix
-  # ...other imports...
-];
+    # SOMA octahedron modules
+    ../modules/field-integration.nix
+    ../modules/prime-petals.nix
+    ../modules/train-station.nix
 
-# Then add or update this configuration block:
-services.copilot-assistant = {
-  enable = true;
-  backend = "python";
-  backendScript = "/etc/copilot-assistant/copilot-assistant-python.py";
-  port = 8765;
-};
+    # Machine-specific config from subdir
+    ./BearsiMac/configuration.nix
+
+    # Copilot assistant flake (clean relative import to address purity error)
+    ../modules/services/copilot-assistant-flake.nix
+  ];
+
+  # Copilot Assistant Service (preserved from the original fragment)
+  services.copilot-assistant = {
+    enable = true;
+    backend = "python";
+    backendScript = "/etc/copilot-assistant/copilot-assistant-python.py";
+    port = 8765;
+  };
+}

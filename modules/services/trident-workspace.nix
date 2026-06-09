@@ -48,9 +48,13 @@ with lib;
       gh  # GitHub CLI
       
       # Programming languages and tools
-      ${config.services.trident-workspace.pythonVersion}Full
-      ${config.services.trident-workspace.pythonVersion}Packages.pip
-      ${config.services.trident-workspace.pythonVersion}Packages.virtualenv
+      # Fixed: dynamic python selection now uses valid expression form (pkgs.${name})
+      # instead of stray ${...} interpolation tokens inside a list. This resolves
+      # the "unexpected DOLLAR_CURLY" syntax error while preserving the configurable
+      # pythonVersion option (default python311).
+      (pkgs.${config.services.trident-workspace.pythonVersion} or pkgs.python311)
+      (pkgs.${config.services.trident-workspace.pythonVersion} or pkgs.python311).pkgs.pip
+      (pkgs.${config.services.trident-workspace.pythonVersion} or pkgs.python311).pkgs.virtualenv
       nodejs_20
       nodePackages.npm
       nodePackages.typescript
