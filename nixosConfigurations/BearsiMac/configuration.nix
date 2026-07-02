@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ../../dot-hive/default.nix
     ../../modules/atlas.nix
+    ../../modules/services/samba-willowie.nix
   ];
 
   # Copilot Assistant service configuration
