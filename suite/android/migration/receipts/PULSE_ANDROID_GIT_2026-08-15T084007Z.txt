@@ -1,0 +1,42 @@
+timestamp_utc: 2026-08-15T084007Z
+path: /Users/field/StudioProjects/PULSE-Android
+note: GitHub nexus-infinity/PULSE-Android CONFIRMED_ABSENT — local-only recovery
+## git remote -v
+origin	git@github.com:nexus-infinity/PULSE-Android.git (fetch)
+origin	git@github.com:nexus-infinity/PULSE-Android.git (push)
+## git status -sb
+## main...origin/main [ahead 21, behind 4]
+?? MOVED_TO_SOMA_SUITE.md
+## top entries
+total 1152
+drwxr-xr-x@   3 field  staff      96 26 Mar 12:44 __tests__
+drwxr-xr-x@  31 field  staff     992 15 Aug 18:37 .
+drwxr-xr-x@   4 field  staff     128  6 Apr 21:52 ..
+drwxr-xr-x@   3 field  staff      96 26 Mar 12:44 .bundle
+-rw-r--r--@   1 field  staff    8196  6 Apr 21:52 .DS_Store
+-rw-r--r--@   1 field  staff      64 26 Mar 12:44 .eslintrc.js
+drwxr-xr-x@  14 field  staff     448 15 Aug 18:40 .git
+-rw-r--r--@   1 field  staff    1085 26 Mar 12:44 .gitignore
+drwxr-xr-x@  10 field  staff     320  3 Jul 12:53 .idea
+-rw-r--r--@   1 field  staff      91 26 Mar 12:44 .prettierrc.js
+-rw-r--r--@   1 field  staff       3 26 Mar 12:44 .watchmanconfig
+-rw-r--r--@   1 field  staff    5018  5 Apr 20:58 AI_HANDOFF.md
+drwxr-xr-x@  13 field  staff     416 27 Mar 19:15 android
+-rw-r--r--    1 field  staff      48  3 Jul 12:53 app.json
+-rw-r--r--    1 field  staff   33841  3 Jul 12:55 App.tsx
+drwxr-xr-x@   4 field  staff     128 27 Mar 06:09 assets
+-rw-r--r--@   1 field  staff      72 26 Mar 12:44 babel.config.js
+-rw-r--r--@   1 field  staff     510 26 Mar 12:44 Gemfile
+-rw-r--r--@   1 field  staff    5100 31 Mar 13:34 GEMINI_HANDOFF.md
+-rw-r--r--@   1 field  staff     187 26 Mar 12:44 index.js
+drwxr-xr-x@   6 field  staff     192 26 Mar 12:44 ios
+-rw-r--r--@   1 field  staff      48 26 Mar 12:44 jest.config.js
+-rw-r--r--@   1 field  staff     301 26 Mar 12:44 metro.config.js
+-rw-r--r--    1 field  staff     681 15 Aug 18:37 MOVED_TO_SOMA_SUITE.md
+drwxr-xr-x@ 579 field  staff   18528  6 Apr 21:52 node_modules
+-rw-r--r--    1 field  staff  463518  3 Jul 12:55 package-lock.json
+-rw-r--r--    1 field  staff    1461  3 Jul 12:55 package.json
+-rw-r--r--@   1 field  wheel    4094 27 Mar 12:12 README.md
+drwxr-xr-x@   3 field  staff      96 27 Mar 02:06 scripts
+drwxr-xr-x@  12 field  staff     384  3 Jul 12:53 src
+-rw-r--r--@   1 field  staff     214 27 Mar 02:27 tsconfig.json

@@ -1,0 +1,43 @@
+timestamp_utc: 2026-08-15T084007Z
+host: macstudio.local
+uname: Darwin macstudio.local 25.5.0 Darwin Kernel Version 25.5.0: Tue Jun  9 22:28:24 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6020 arm64
+whoami: field
+HOME: /Users/field
+local_FIELD: /Users/field
+jbear_note: /Users/jbear is NOT local FIELD (SCAN_JBEAR_LEFTOVERS=1)
+
+## resolved sources
+KITT_SRC=ABSENT
+SONOC_SRC=/Users/jbear/AndroidStudioProjects/SonocScrewDriver
+PULSE_ANDROID_SRC=/Users/field/StudioProjects/PULSE-Android
+NOTE: SONOC resolved under jbear leftover path — not FIELD desk home
+
+## path witness (FIELD desk first)
+ABSENT   -  /Users/field/◼︎DOJO/kitt-arkadas-android
+ABSENT   -  /Users/field/FIELD/◼︎DOJO/kitt-arkadas-android
+PRESENT  2.6G  /Users/field/StudioProjects/PULSE-Android
+ABSENT   -  /Users/field/StudioProjects/SonocScrewDriver
+ABSENT   -  /Users/field/AndroidStudioProjects/SonocScrewDriver
+PRESENT  7.1G  /Users/field/Library/Android
+ABSENT   -  /Users/field/AndroidStudioProjects
+ABSENT   -  /Users/field/FIELD-ANDROID-BACKUPS
+ABSENT   -  /Users/field/FIELD-ANDROID-SYNC
+
+## cross-account leftovers (NOT FIELD) under /Users/jbear
+ABSENT   -  /Users/jbear/FIELD/◼︎DOJO/kitt-arkadas-android
+LEFTOVER 904K  /Users/jbear/AndroidStudioProjects/SonocScrewDriver
+ABSENT   -  /Users/jbear/Library/Android
+
+## find *kitt* under FIELD desk (maxdepth 5)
+
+## find *kitt* under jbear leftovers (NOT FIELD, maxdepth 5)
+/Users/jbear/FIELD/◼︎DOJO/KITT_ARKADAS_ANDROID_SPEC.md
+
+## find under FIELD StudioProjects / AndroidStudioProjects (maxdepth 3)
+# /Users/field/StudioProjects
+/Users/field/StudioProjects/PULSE-Android
+/Users/field/StudioProjects/PULSE-Android/node_modules/logkitty
+/Users/field/StudioProjects/PULSE-Android/ios/PulseAndroid
+/Users/field/StudioProjects/PULSE-Android/ios/PulseAndroid.xcodeproj
+/Users/field/StudioProjects/PULSE-Android/android
+/Users/field/StudioProjects/PULSE-Android/.idea/PULSE-Android.iml

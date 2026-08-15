@@ -1,0 +1,3 @@
+HOLD: HOLD.KittSourceMissing — not under /Users/field DOJO/StudioProjects; continuing without KITT
+HOLD: HOLD.ReclaimSkippedNonFieldSource label=SONOC path=/Users/jbear/AndroidStudioProjects/SonocScrewDriver (not under /Users/field)
+HOLD: HOLD.DojoDiskReclaimPending label=PULSE-Android size=2.6G — still on Studio until MOVE_MODE=replace

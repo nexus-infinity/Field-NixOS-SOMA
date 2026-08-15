@@ -1,0 +1,1 @@
+POINTER PULSE-Android size_still_local=2.6G path=/Users/field/StudioProjects/PULSE-Android (MOVE_MODE=replace to reclaim disk)
