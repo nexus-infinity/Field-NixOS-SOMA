@@ -195,7 +195,7 @@ jobs:
         run: |
           echo "Checking for secret-like filenames..."
           
-          if git ls-files | grep -iE "(secret|\.key$|\.pem$|id_rsa|id_ed25519|\.env$)" | grep -v "secrets/README.md"; then
+          if git ls-files | grep -iE "(secret|\.key$|\.pem$|id_rsa|id_ed25519|\.env$)" | grep -vE "secrets/(README\.md|\.gitignore)$"; then
             echo "❌ ERROR: Secret-like files are tracked!"
             exit 1
           else

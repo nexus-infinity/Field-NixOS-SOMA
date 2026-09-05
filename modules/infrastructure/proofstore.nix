@@ -34,7 +34,10 @@ in
       ensureUsers = [
         {
           name = "soma";
-          ensureDBOwnership = true;
+          # The service user is granted access explicitly below. NixOS requires
+          # ensureDBOwnership users to have a database with the same name; the
+          # canonical ProofStore database is cfg.database instead.
+          ensureDBOwnership = false;
         }
       ];
       
