@@ -28,6 +28,7 @@
           # Aggregator chakra module that uses sacredGeometryPath + chakrasPath
           ./dot-hive/default.nix
           ./modules/services/atlas-frontend.nix 
+          ./modules/services/pulse-home.nix
 
           # SOMA octahedron modules
           ./modules/field-integration.nix

@@ -8,6 +8,7 @@
     ../../dot-hive/default.nix
     ../../modules/atlas.nix
     ../../modules/services/samba-willowie.nix
+    ../../modules/services/pulse-home.nix
   ];
 
   # Copilot Assistant service configuration
@@ -65,6 +66,12 @@
   services.tata8i-pulse-engine = {
     enable = false;
     # Pulse engine specific settings will be auto-configured
+  };
+
+  services.pulse-home = {
+    enable = true;
+    port = 9000;
+    houseId = "willowie";
   };
 
   # FIELD-NixOS-SOMA Configuration
