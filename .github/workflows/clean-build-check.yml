@@ -152,9 +152,13 @@ jobs:
         run: |
           nix eval .#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel.drvPath
       
-      - name: Build configuration (dry-run)
+      - name: Build configuration
         run: |
-          nix build .#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel --dry-run
+          if [ "${{ matrix.config }}" = "BearsiMac" ]; then
+            nix build .#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel --no-link --print-build-logs
+          else
+            nix build .#nixosConfigurations.${{ matrix.config }}.config.system.build.toplevel --dry-run
+          fi
         continue-on-error: true
       
       - name: Report build status

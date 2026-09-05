@@ -298,7 +298,7 @@ validate_flake() {
         check_info "Flake outputs:"
         nix flake show . --no-write-lock-file 2>/dev/null | head -20 | while read -r line; do
             check_info "  $line"
-        done
+        done || true
     else
         check_warn "Flake metadata validation failed (may be due to missing hardware-configuration.nix)"
         check_info "This is expected if hardware-configuration.nix hasn't been generated yet"
