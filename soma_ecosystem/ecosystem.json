@@ -1,0 +1,121 @@
+{
+  "ecosystem": "soma",
+  "not": "dojo",
+  "nucleus": {
+    "name": "GISP",
+    "vertical": ["genotype", "identity", "state", "phenotype"],
+    "horizontal": "prime fractal mandala",
+    "genotype": "prime fractal, chakra-aligned geometry"
+  },
+  "manager": {
+    "kind": "chamber process",
+    "is_a_model": false,
+    "receives": "cleansed Dojo packet only"
+  },
+  "forbidden_models": [
+    "misterJB/obiwan-field-963hz",
+    "misterJB/tata-field-432hz",
+    "misterJB/atlas-field-528hz",
+    "misterJB/akron-field-396hz",
+    "misterJB/arkadas-field-717hz",
+    "misterJB/naima-dojo-741hz-v3",
+    "misterJB/naima-dojo-741hz-v4",
+    "intfloat/e5-base-v2"
+  ],
+  "forbidden_size_band": "3B to 21B chat weights",
+  "chambers": [
+    {
+      "prime": 2,
+      "identity": "root",
+      "bridge": "vector",
+      "shape": "ALBERT encoder, fill-mask",
+      "size": "12M",
+      "model": "surajp/albert-base-sanskrit",
+      "language": "Sanskrit",
+      "loaded": false
+    },
+    {
+      "prime": 3,
+      "identity": "sacral",
+      "bridge": "symbolic",
+      "shape": "BERT encoder, fill-mask",
+      "size": "110M",
+      "model": "neuralmind/bert-base-portuguese-cased",
+      "language": "Portuguese",
+      "note": "Orisha is not a model. It is not filled from somewhere else.",
+      "loaded": false
+    },
+    {
+      "prime": 5,
+      "identity": "solar",
+      "bridge": "command",
+      "shape": "small Latin encoder, not a chat model",
+      "size": "under 150M",
+      "model": null,
+      "language": "Latin",
+      "loaded": false
+    },
+    {
+      "prime": 7,
+      "identity": "heart",
+      "bridge": "coherence",
+      "shape": "BERT encoder, fill-mask",
+      "size": "126M",
+      "model": "onlplab/alephbert-base",
+      "language": "Hebrew",
+      "loaded": false
+    },
+    {
+      "prime": 11,
+      "identity": "throat",
+      "bridge": "communication",
+      "shape": "small monolingual causal model",
+      "size": "about 125M",
+      "model": null,
+      "language": "Xhosa, Zulu later",
+      "note": "A 3B Xhosa chat model sits in the forbidden size band. It is not used.",
+      "loaded": false
+    },
+    {
+      "prime": 13,
+      "identity": "third eye",
+      "bridge": "pattern",
+      "shape": "small embedding, not a generative model",
+      "size": "under 100M",
+      "model": null,
+      "language": "not WuDao",
+      "loaded": false
+    },
+    {
+      "prime": 17,
+      "identity": "crown",
+      "bridge": "synthesis",
+      "shape": "small encoder",
+      "size": "under 150M",
+      "model": null,
+      "language": "Tibetan, when a model of this size exists",
+      "loaded": false
+    },
+    {
+      "prime": 19,
+      "identity": "soma",
+      "bridge": "dream",
+      "shape": "GPT-2 monolingual, 512 tokens",
+      "size": "125M",
+      "model": "goldfish-models/gla_latn_100mb",
+      "language": "Scottish Gaelic",
+      "note": "Norse is not seated.",
+      "loaded": false
+    },
+    {
+      "prime": 23,
+      "identity": "jnana",
+      "bridge": "logic",
+      "shape": "no weight. Rules and arithmetic.",
+      "size": "none",
+      "model": null,
+      "language": "mathematical",
+      "loaded": false
+    }
+  ]
+}
