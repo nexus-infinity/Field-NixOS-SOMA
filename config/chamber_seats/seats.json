@@ -1,0 +1,137 @@
+{
+  "phase": "chamber-seats",
+  "status": "planned",
+  "verified_on_main": false,
+  "manager": {
+    "role": "chamber manager",
+    "model": "TinyLlama-1.1B-Chat",
+    "quantization": "Q4_K_M",
+    "loaded": false,
+    "note": "Named in every DNA blueprint. Not started by the chakra service."
+  },
+  "language_channel": {
+    "role": "model closest to the chamber language",
+    "separate_from_manager": true,
+    "hot_swap": "parameters of the manager, and which language model is seated, can change without changing the chamber"
+  },
+  "chambers": [
+    {
+      "chamber": "root",
+      "chakra": "muladhara",
+      "prime": 2,
+      "base_hz": 108,
+      "language": "Sanskrit and earth harmonics",
+      "bridge": "vector processing",
+      "geometry": "tetrahedron",
+      "dna": "config/dna_blueprints/dal_dna_v0.2.0_prime2_muladhara_ubuntu.json",
+      "language_model": "tanuj437/SanskritBERT",
+      "language_model_status": "located, not loaded",
+      "service": "chakras/muladhara/module.nix"
+    },
+    {
+      "chamber": "sacral",
+      "chakra": "svadhisthana",
+      "prime": 3,
+      "base_hz": 216,
+      "language": "Portuguese / Orisha",
+      "bridge": "symbolic expression",
+      "geometry": "cube",
+      "dna": "config/dna_blueprints/dal_dna_v0.2.0_prime3_svadhisthana_ubuntu.json",
+      "language_model": null,
+      "language_model_status": "not seated",
+      "service": "chakras/svadhisthana/module.nix"
+    },
+    {
+      "chamber": "solar plexus",
+      "chakra": "manipura",
+      "prime": 5,
+      "base_hz": 432,
+      "language": "Latin",
+      "bridge": "command logic",
+      "geometry": "octahedron",
+      "dna": "config/dna_blueprints/dal_dna_v0.2.0_prime5_manipura_ubuntu.json",
+      "language_model": null,
+      "language_model_status": "not seated",
+      "service": "chakras/manipura/module.nix"
+    },
+    {
+      "chamber": "heart",
+      "chakra": "anahata",
+      "prime": 7,
+      "base_hz": 528,
+      "language": "Hebrew",
+      "bridge": "coherence",
+      "geometry": "dodecahedron",
+      "dna": "config/dna_blueprints/dal_dna_v0.2.0_prime7_anahata_ubuntu.json",
+      "language_model": "onlplab/alephbert-base",
+      "language_model_status": "located, not loaded",
+      "service": "chakras/anahata/module.nix",
+      "first_run": true
+    },
+    {
+      "chamber": "throat",
+      "chakra": "vishuddha",
+      "prime": 11,
+      "base_hz": 639,
+      "language": "Xhosa / Zulu",
+      "bridge": "communication",
+      "geometry": "icosahedron",
+      "dna": "config/dna_blueprints/dal_dna_v0.2.0_prime11_vishuddha_ubuntu.json",
+      "language_model": "ptrdvn/kakugo-3B-xho",
+      "language_model_status": "located, not loaded. Zulu not seated",
+      "service": "chakras/vishuddha/module.nix"
+    },
+    {
+      "chamber": "third eye",
+      "chakra": "ajna",
+      "prime": 13,
+      "base_hz": 741,
+      "language": "WuDao / Taoist",
+      "bridge": "pattern recognition",
+      "geometry": "metatron cube",
+      "dna": "config/dna_blueprints/dal_dna_v0.2.0_prime13_ajna_ubuntu.json",
+      "language_model": null,
+      "language_model_status": "not seated",
+      "service": "chakras/ajna/module.nix"
+    },
+    {
+      "chamber": "crown",
+      "chakra": "sahasrara",
+      "prime": 17,
+      "base_hz": 963,
+      "language": "Vajrayana / Tibetan",
+      "bridge": "synthesis",
+      "geometry": "flower of life",
+      "dna": "config/dna_blueprints/dal_dna_v0.2.0_prime17_sahasrara_ubuntu.json",
+      "language_model": null,
+      "language_model_status": "not seated",
+      "service": "chakras/sahasrara/module.nix"
+    },
+    {
+      "chamber": "soma",
+      "chakra": "soma",
+      "prime": 19,
+      "base_hz": 1080,
+      "language": "Gaelic / Norse",
+      "bridge": "dream processing",
+      "geometry": "sri yantra",
+      "dna": "config/dna_blueprints/dal_dna_v0.2.0_prime19_soma_ubuntu.json",
+      "language_model": "goldfish-models/gla_latn_100mb",
+      "language_model_status": "Scottish Gaelic located, not loaded. Norse not seated",
+      "service": "chakras/soma/module.nix"
+    },
+    {
+      "chamber": "jnana",
+      "chakra": "jnana",
+      "prime": 23,
+      "base_hz": null,
+      "language": "mathematical",
+      "bridge": "pure logic",
+      "geometry": "merkaba",
+      "dna": "config/dna_blueprints/dal_dna_v0.2.0_prime23_jnana_agent99_ubuntu.json",
+      "language_model": null,
+      "language_model_status": "not seated",
+      "service": "chakras/jnana/module.nix"
+    }
+  ]
+}
