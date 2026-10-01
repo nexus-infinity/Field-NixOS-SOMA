@@ -17,6 +17,7 @@ Minimal on purpose. A new way of speaking is a new row. It does not rename an ol
 | Soma Shared | SOMA | SOMA's own road | A reference inside SOMA | Dojo's traffic. The warehouse | Named. Not built |
 | SOMA.PULSE | SOMA | When SOMA may change. Three waves | Timing inside SOMA | The city's pulse. Dojo's pulse. Every small flicker | Named. Not running |
 | BRIDGE.PULSE | The crossing only | Whether a crossing is open | Phase | A third sovereign. A fourth step | Named. Contract HOLD |
+| Validator | The walk. Any chamber | Confirms this step did not advance on a contradiction | A yes, or a hold | The next step. The DNA nucleus. Dojo's machine | Named |
 
 ## A pulse is three
 
@@ -35,5 +36,18 @@ Three by three. That is the surface for walking a system, building one, or speak
 Three main things. Three under each. The third three is the King's Chamber cube, and it is depth. You enter a layer. You do not keep twenty-seven open.
 
 The twenty-seven already drawn are query faces onto the vertex intelligences, not twenty-seven minds. Three are deployed. The paper that says so is a hypothesis. SOMA's nine are not that face.
+
+## The walk
+
+Any chamber. One note at a time. At that note, four roles:
+
+- Observer. What is actually here.
+- Architect. The shape you meant.
+- Weaver. The doing.
+- Validator. Confirms the step did not advance through a contradiction. A fall is not recorded as a turn.
+
+The external field still aligns the next step. It is not a role. The validator does not ski, and it does not write the DNA nucleus.
+
+Dojo's OAW extO already seats this role on Dojo's side. Naming it here does not copy that machine, its frequencies, or TATA into SOMA.
 
 Soma Link is not on this list. It has not been named. Do not make one by copying Dojo Link.
