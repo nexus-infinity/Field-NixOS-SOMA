@@ -2,28 +2,26 @@
 
 Uncovering. Nothing here is running.
 
-Dojo, SOMA, and PULSE may be read against each other. They may not be written into each other.
+## Four, not three
 
-What may cross: a lesson about how to seat a thing. A nucleus. A path. An empty seat left empty.
+| | Where it is | What it is not |
+| --- | --- | --- |
+| Internal pulse | Within the organic observer | Not Field PULSE. Not a flake. Not a chamber |
+| Field PULSE | The Local Sovereign FIELD. The representation of the inverse domain. It covers that domain | Not the pulse inside the person. Not a SOMA volume. Not a Dojo file |
+| Dojo | Organic workspace. Mac Studio. Sacred geometry. Six chambers. The Trident. Its own shelf | Not SOMA. Not Field PULSE. Not the observer's internal pulse |
+| SOMA | Synthetic. iMac. Prime-fractal chambers. Nine flakes. Ghost, and one volume per prime. Prime 23 is an index, not a warehouse | Not Dojo. Not Field PULSE. Not the observer's internal pulse |
 
-What may not cross: a model, a culture list, a frequency used as an identity, a Dojo file used as a SOMA volume, a SOMA flake used as a Dojo chamber, either sovereign written into PULSE, PULSE written into a flake.
+A lesson may be read across. An identity may not be written across.
 
-| | Dojo | SOMA | PULSE |
-| --- | --- | --- | --- |
-| Identity | Organic workspace | Synthetic | Representation of the inverse field |
-| Where | Mac Studio | iMac in the Den | The Local Sovereign FIELD, the space between the sovereigns |
-| What it keeps | An aligned observation. Six chambers. The Trident. Its own shelf | Nine flakes. Ghost for the source. One volume per prime. Prime 23 as an index, not a warehouse | The inverse domain. Not a chamber's weight and not a Dojo file |
-| Genotype | Sacred geometry | Prime-fractal chambers | The inverse topology of the Local Sovereign FIELD |
+An empty SOMA directory is an unseated weight. It is not the inverse, and it is not anyone's pulse.
 
-PULSE covers the inverse domain. SOMA does not build that space. Dojo does not build that space. An empty SOMA directory is an unseated weight. It is not the inverse.
-
-Susan's SOMA Suite is a further use of the word. It is not this plan.
+Susan's SOMA Suite is a further use of the word SOMA. It is not this plan.
 
 ## Order
 
-1. Empty directories on the machine. Do not fill them. Do not treat them as the inverse.
+1. Empty directories on the machine. Do not fill them.
 2. Correct the DNA so each flake names its own genotype. Do not invent cultures that have not been witnessed. Do not leave TinyLlama as all nine.
-3. The library stays a declaration beside the Trident.
-4. The edges and the packet stay SOMA's to define later. The inverse domain stays PULSE's.
+3. The SOMA library stays a declaration beside the Trident.
+4. The inverse domain stays with Field PULSE. The internal pulse stays with the observer.
 
-Diary: Local Sovereign FIELD Intentions, `LSF-DEV-20261001-SOMA-DOJO-001` and `LSF-DEV-20261001-PULSE-INVERSE-002`.
+Diary: `LSF-DEV-20261001-SOMA-DOJO-001`, `LSF-DEV-20261001-PULSE-INVERSE-002`, `LSF-DEV-20261001-TWO-PULSES-003`.
