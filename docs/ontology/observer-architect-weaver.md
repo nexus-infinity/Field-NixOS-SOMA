@@ -24,8 +24,9 @@ To *perceive and measure* the geometry, rhythm, and meaning of the field — bot
 
 **Semantic Perspective:**
 
-* Defines *truth and coherence* through relational awareness.
+* Records and evaluates observations bearing on *truth and coherence* through relational awareness.
 * Interprets symbolic meaning between entities and detects resonance shifts.
+* **Does not possess authority to declare truth**; observation informs, does not authorize.
 
 **Temporal Perspective:**
 
