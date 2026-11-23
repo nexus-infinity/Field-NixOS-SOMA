@@ -262,53 +262,52 @@ class SOMAmcpBridge:
         proof_id = arguments.get("proof_id")
         verify_chain = arguments.get("verify_chain", False)
         
-        # Stub implementation - would query ProofStore
+        # No ProofStore verification is wired here yet. A request is not a receipt.
         return {
             "proof_id": proof_id,
-            "valid": True,
-            "chain_validated": verify_chain,
-            "ubuntu_note": "Proofs are collective truth, validated by many",
-            "status": "stub_implementation"
+            "valid": None,
+            "chain_validated": None,
+            "chain_validation_requested": verify_chain,
+            "status": "unknown",
+            "reason": "proofstore_verification_not_implemented"
         }
-    
+
     async def _soma_ubuntu_check(self, arguments: Dict) -> Dict:
-        """Check Ubuntu collective awareness health."""
+        """Report witnessed endpoint responses, not presumed collective behaviour."""
         detailed = arguments.get("detailed", False)
-        
         ubuntu_health = {
             "ubuntu_principle": "I am because we are",
-            "collective_aware": True,
-            "never_acts_alone": True,
-            "overall_health": "healthy"
+            "collective_aware": None,
+            "never_acts_alone": None,
+            "overall_health": "unknown",
+            "reason": "collective_behaviour_not_verified"
         }
-        
+
         if detailed:
-            # Query each chakra for Ubuntu metrics
             chakra_health = {}
             async with httpx.AsyncClient() as client:
                 for prime, endpoint in self.CHAKRA_ENDPOINTS.items():
+                    observation = {"status": "unknown", "reported_status": None,
+                                   "ubuntu_aware": None, "endpoint": endpoint}
                     try:
-                        response = await client.get(
-                            f"{endpoint}/health",
-                            timeout=2.0
-                        )
+                        response = await client.get(f"{endpoint}/health", timeout=2.0)
+                        observation["http_status"] = response.status_code
                         if response.status_code == 200:
                             data = response.json()
-                            chakra_health[f"prime_{prime}"] = {
-                                "ubuntu_aware": data.get("ubuntu", "").startswith("I am because"),
-                                "status": data.get("status", "unknown")
-                            }
-                    except Exception as e:
-                        chakra_health[f"prime_{prime}"] = {
-                            "ubuntu_aware": False,
-                            "status": "unreachable",
-                            "error": str(e)
-                        }
-            
+                            if isinstance(data, dict):
+                                observation["status"] = "response_observed"
+                                observation["reported_status"] = data.get("status")
+                            else:
+                                observation["status"] = "invalid_response"
+                        else:
+                            observation["status"] = "http_error"
+                    except Exception:
+                        observation["status"] = "observation_failed"
+                    chakra_health[f"prime_{prime}"] = observation
             ubuntu_health["chakra_details"] = chakra_health
-        
+
         return ubuntu_health
-    
+
     async def start(self):
         """Start MCP bridge server."""
         logger.info("=" * 80)
